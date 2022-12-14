@@ -13,7 +13,7 @@ html{
 @mixin skew($num){-moz-transform: skewX($num); -ms-transform: skewX($num); -webkit-transform: skewX($num); -o-transform: skewX($num); transform: skewX($num);}
 @mixin cnt($h){display: flex; flex-direction: column; height: $h; text-align: center; align-items: stretch; justify-content: center;}
 @mixin tr($x,$y,$z){transform: translate3d($x,$y,$z);}
-@mixin flexbox(){display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; font-size: 0;}
+@mixin flexbox(){display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex;}
 @mixin flexorder($val){-webkit-box-ordinal-group: $val; -moz-box-ordinal-group: $val; -ms-flex-order: $val; order: $val;}
 //! </Міксини> =================================================================
 
@@ -32,12 +32,16 @@ body{
 }
 //* </Шрифт по змовчуванню> =================================================================
 
+//! <Шаблони текстів> =================================================================
+
 .pts{
     font-family: "Inter", sans-serif;
 }
 .ptz{
     font-family: "Barlow", sans-serif;
 }
+
+//! </Шаблони текстів> =================================================================
 
 //! </Шрифти> =================================================================
 
@@ -47,9 +51,50 @@ body{
 //! </Змінні> =================================================================
 
 
-//! <Buttons> =================================================================
+//! <Buttons and used classes> =================================================================
 
-//! </Buttons> =================================================================
+.title{
+    font-size: 51px;
+    font-weight: 700;
+    text-align: center;
+    color: #2F2E2E;
+    @media (max-width: 767px){
+        font-size: 38px;
+    }
+}
+
+.logo{
+    display: inline-block;
+
+    @extend .ptz;
+    font-weight: 600;
+    font-size: 42px;
+    color: #2F2E2E;
+}
+
+.subtitle{
+    margin: 0 0 24.5px 0;
+    
+    @extend .pts;
+    font-weight: 900;
+    font-size: 24px;
+    color: #FAFAFA;
+}
+
+.text{
+    @extend .pts;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 29px;
+    color: #FAFAFA;
+}
+
+#map {
+    width: 295px;
+    height: 221px;
+}
+
+//! </Buttons and used classes> =================================================================
 
 
 //! <Файл обнуляющих стилів> =================================================================
@@ -82,6 +127,7 @@ body{
         width: 30px;
         height: 18px;
         position: relative;
+        margin-top: 10px;
 
         cursor: pointer;
         z-index: 5;
@@ -91,7 +137,7 @@ body{
         top: 8px;
         left: 0px;
         width: 100%;
-        height: 2px;
+        height: 2.4px;
 
         background-color: #000;
             &:first-child{
@@ -104,14 +150,14 @@ body{
         }
         &.active{
             span{
-                @include scale(0);
+                transform: scale(0);
                 &:first-child{
-                    @include rotate(-45deg);
+                    @include rotate(45deg);
                     top: 8px;
                 }
                 &:last-child{
                     @include anim(0.3s,0s);
-                    @include rotate(45deg);
+                    @include rotate(-45deg);
                     bottom: 8px;
                 }
             }
@@ -120,31 +166,15 @@ body{
             display: block;
         }
     }
-    .header__menu {
-        @media (max-width: 767px){
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: -100%;
-            padding: 50px;
-            overflow: auto;
-            display: flex;
-            justify-content: center;   
-            align-items: center;
-            text-align: center;
-
-            background-color: #fff;
-            z-index: 2;
-            @include anim(0.3s,0s);
-            &.active{
-                left: 0;
-            }
-        }
-    }
 .header {
-    position: relative;
+    margin: 0 0 30px 0;
+    position: fixed;
+    background-color: #fff;
+    width: 100%;
     z-index: 50;
+    @media (max-width: 992px){
+        margin: 0 0 20px 0;
+    }
     @media (max-width: 767px){
         position: fixed;
         top: 0;
@@ -157,8 +187,10 @@ body{
         justify-content: space-between;
         align-items: center;
         height: 100px;
+        @media (max-width: 767px){
+            height: 75px;
+        }
     }
-	&__item {}
 	&__logo {
         display: inline-block;
         position: relative;
@@ -169,11 +201,11 @@ body{
         font-size: 42px;
         color: #2F2E2E;
     }
-	&__column {}
 }
 
 .menu-header {
 	&__menu {
+        position: relative;
         @media (max-width: 767px){
             position: fixed;
             width: 100%;
@@ -200,6 +232,15 @@ body{
         align-items: center;
         li{
             margin: 11px 100px 0 0;
+            @media (max-width: 992px){
+                margin: 10px 40px 0 0;
+            }
+            @media (max-width: 767px){
+                margin: 40px 0;
+            }
+        }
+        @media (max-width: 767px){
+            display: block;
         }
     }
 	&__link {
@@ -221,10 +262,13 @@ body{
                 left: 50%;
                 bottom: 0;
                 width: 0;
-                height: 1px;
+                height: 1.5px;
 
                 background-color: #2F2E2E;
                 @include anim(0.3s,0s);
+                @media (max-width: 767px){
+                    bottom: -5px;
+                }
             }
         }
         &:hover{
@@ -234,27 +278,566 @@ body{
                 width: 100%;
             }
         }
-        &__search{
-            
+        @media (max-width: 767px){
+            font-size: 35px;
         }
     }
-	#search {
-        
+    .search {
+        margin-top: 10px;
+		&__icon {
+            fill:#2F2E2E;
+            @include anim(0.3s,0s);
+            &:hover{
+                fill: #1b1a1a;
+                transform: scale(1.2) rotate(-25deg);
+            }
+        }
+        @media (max-width: 767px){
+            position: absolute;
+            top: 21px;
+            right: 70px;
+            transform: scale(1.1);
+        }
     }
-    .search-icon{
-       
-  
-    }
+
 }
+
 
 
 //* </Burger> =================================================================
 
 //! </Header> =================================================================
 
+//! <Solution> =================================================================
+
+.solution {
+    &__body {
+        @include flexbox();
+        justify-content: flex-end;
+        position: relative;
+    }
+    &__item {}
+    &__image {}
+        height: 739px;
+        img{
+            max-width: 100%;
+            @media (max-width: 510px){
+                margin: 200px 0 0 0;
+            }
+        }
+        @media (max-width: 1170px){
+            height: auto;
+        }
+}
+.item-solution {
+    &__body {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        width: 691px;
+        height: 550px;
+        z-index: 5;
+        padding: 138px 100px 0;
+
+        background: linear-gradient(91.1deg, rgba(244, 246, 245, 0.9) -7.89%, rgba(255, 255, 255, 0.9) 132.55%);
+
+        @media (max-width: 1170px){
+            height: 475px;
+        }
+        @media (max-width: 992px){
+            top: 50px;
+            width: auto;
+            height: auto;
+            padding: 100px 55px 80px;
+        }
+        @media (max-width: 767px){
+            padding: 30px 10px;
+        }
+    }
+    &__title {
+        margin: 0 0 10px 0;
+
+        font-size: 51px;
+        line-height: 60px;
+        color: #2F2E2E;
+        @media (max-width: 767px){
+            font-size: 40px;
+        }
+        @media (max-width: 510px){
+            font-size: 20px;
+            line-height: 30px;
+        }
+    }
+    &__text {
+        @extend .pts;
+        font-size: 32px;
+        font-weight: 200;
+        line-height: 39px;
+        color: #2F2E2E;
+        @media (max-width: 767px){
+            font-size: 20px;
+        }
+        @media (max-width: 510px){
+            font-size: 14px;
+            line-height: 22px;
+        }
+    }
+}
+
+//! </Solution> =================================================================
+
+//! <Services> =================================================================
+
+.services {
+    padding: 15px 0 65px;
+    margin: 0 0 75px 0;
+
+    background: rgba(37, 77, 77, 0.2);
+    @media (max-width: 767px){
+        margin: 0 0 35px 0;
+    }
+    &__container {
+        max-width: 1170px;
+        margin: 0 auto;
+    }
+    &__title {
+        margin: 0 0 45px 0;
+    }
+    &__body {
+        @include flexbox();
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    &__column {
+        flex: 0 0 auto;
+        @media (max-width: 767px){
+            flex: 1 1 100%;
+        }
+    }
+    @media (max-width: 767px){
+        padding: 15px 0 0px;
+    }
+}
+.item-services {
+    @include flexbox();
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    &__image {
+        @include flexbox();
+        justify-content: center;
+        align-items: center;
+        width: 103px;
+        height: 103px;
+
+        background-color: #254D4D;
+        border-radius: 50%;
+    }
+    &__blocktext {
+        width: 158px;
+        @media (max-width: 767px){
+            width: auto;
+        }
+    }
+    &__title {
+        margin-bottom: 10px;
+
+        font-size: 32px;
+        font-weight: 700;
+        color: #2F2E2E;
+    }
+    &__subtitle {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19px;
+        color: #2F2E2E;
+    }
+    @media (max-width: 767px){
+        margin: 0 0 50px 0;
+    }
+}
+
+//! </Services> =================================================================
+
+//! <About> =================================================================
+
+.about {
+    margin: 0 0 95px 0;
+    @media (max-width: 767px){
+        margin: 0 0 45px 0;
+    }
+    &__row {
+        @include flexbox();
+        @media (max-width: 1245px){
+            flex-direction: column;
+        }
+    }
+    &__image {
+        text-align: center;
+        @media (max-width: 1245px){
+            order: 2;
+        }
+        img{
+            @media (max-width: 767px){
+                max-width: 100%;
+            }
+        }
+    }
+    &__block {}
+}
+.block-about {
+    margin: 65px 0 0 85px;
+    &__title {
+        margin: 0 0 25px 0;
+
+        text-align: left;
+        @media (max-width: 1245px){
+            text-align: center;
+        }
+    }
+    &__text {
+        margin: 0 0 35px 0;
+
+        font-size: 31px;
+        line-height: 46px;
+        @media (max-width: 767px){
+            font-size: 20px;
+            line-height: 30px;
+        }
+    }
+    &__link {
+        @extend .pts;
+        font-size: 24px;
+        font-weight: 600;
+        color: #2F2E2E;
+        --b: 0.15em;   /* the thickness of the line */
+        --c: #254D4D; /* the color */
+        
+        color: #0000;
+        padding-block: var(--b);
+        background: 
+          linear-gradient(var(--c) 0%,#000) 0% calc(100% - var(--_p,0%))/100% 200%,
+          linear-gradient(var(--c) 0 0) 0% var(--_p,0%)/var(--_p,0%) var(--b) no-repeat;
+        -webkit-background-clip: text,padding-box;
+                background-clip: text,padding-box;
+        transition: 0.3s var(--_s,0s) linear,background-size 0.3s calc(0.3s - var(--_s,0s));
+          &:hover {
+            --_p: 100%;
+            --_s: .3s;
+          }
+    }
+    @media (max-width: 1245px){
+        text-align: center;
+        margin: 0 0 50px 0;
+    }
+}
+
+//! </About> =================================================================
+
+//! <Projects> =================================================================
+
+.projects {
+    margin: 0 0 60px 0;
+    @media (max-width: 767px){
+        margin: 0 0 10px 0;
+    }
+    &__header {}
+    &__row {
+        @include flexbox();
+        flex-wrap: wrap;
+        margin: 0 -50px;
+    }
+    &__item {
+        width: 33.333%;
+        padding: 0 50px;
+        margin: 0 0 75px 0;
+        @media (max-width: 1245px){
+            width: 50%;
+        }
+        @media (max-width: 767px){
+            width: 100%;
+            margin: 0 0 50px 0;
+        }
+    }
+}
+.projects-header {
+    margin: 0 0 70px 0;
+
+    @include flexbox();
+    justify-content: space-between;
+    align-items: center;
+    height: 68px;
+    &__title {
+        @media (max-width: 767px){
+            margin: 0 0 15px 0;
+        }
+    }
+    &__menu{}
+    &__list {
+        @include flexbox();
+        align-items: center;
+        margin-top: 10px;
+        li{
+            margin-left: 95px;
+            &:first-child{
+                margin: 0;
+            }
+            @media (max-width: 992px){
+                margin-left: 50px;
+            }
+            @media (max-width: 510px){
+                margin-left: 22px;
+                &:first-child{
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    &__tab {
+        position: relative;
+
+        @extend .pts;
+        font-size: 20px;
+        font-weight: 400;
+        color: #2F2E2E;
+        span{
+            &::after{
+                content: '';
+                position: absolute;
+                width: 0;
+                left: 0;
+                bottom: 0;
+                height: 1.5px;
+
+                background-color: #2F2E2E;
+            }
+        }
+        &:active{
+            color: #000;
+            font-weight: 600;
+            span:after{
+                width: 100%;
+            }
+        }
+    }
+    .tab--active{
+        font-weight: 600;
+        color: #000;
+    }
+    @media (max-width: 767px){
+        flex-direction: column;
+        margin: 0 0 55px 0;
+    }
+}
+.item-projects {
+    @include flexbox();
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__image {
+        margin: 0 0 15px 0;
+        img{
+            border-radius: 30px;
+        }
+    }
+    &__text {
+        width: 178px;
+
+        text-align: center;
+        font-size: 18px;
+        line-height: 21px;
+        color: #2F2E2E;
+    }
+}
+
+//! </Projects> =================================================================
+
+//! <Feedback> =================================================================
+
+.feedback {
+    margin: 0 0 150px 0;
+    @media (max-width: 767px){
+        margin: 0 0 25px 0;
+    }
+    &__title {
+        margin: 0 0 75px 0;
+    }
+    &__inner {
+        @include flexbox();
+        justify-content: space-between;
+        @media (max-width: 1110px){
+            flex-direction: column;
+        }
+    }
+    &__item {
+        @include flexbox();
+        align-items: center;
+        flex: 0 0 auto;
+        @media (max-width: 1245px){
+            margin: 0 20px 0 0;
+        }
+        @media (max-width: 1110px){
+            width: auto;
+            justify-content: center;
+            margin: 0 0 50px 0;
+        }
+    }
+    &__image {
+        img{
+            @media (max-width: 510px){
+                width: 110px;
+                height: 110px;
+            }
+        }
+    }
+    &__textblock {
+        margin: 0 0 0 30px;
+        @media (max-width: 1110px){
+            text-align: center;
+        }
+    }
+    &__name {
+        width: 363px;
+        margin: 0 0 15px 0;
+
+        font-size: 28px;
+        font-weight: 700;
+        color: #2F2E2E;
+        @media (max-width: 1110px){
+            width: auto;
+        }
+        @media (max-width: 510px){
+            font-size: 22px;
+        }
+    }
+    &__text {
+        width: 307px;
+
+        font-size: 17px;
+        line-height: 20px;
+        color: #2F2E2E;
+        @media (max-width: 1110px){
+            width: auto;
+        }
+        @media (max-width: 510px){
+            font-size: 14px;
+        }
+    }
+}
+
+
+
+//! </Feedback> =================================================================
 
 //! <Footer> =================================================================
 
+.footer {
+    height: 369px;
+    padding: 50px 100px;
 
+    background: #2E2F32;
+    &__body {
+        @include flexbox();
+        flex-wrap: wrap;
+        margin: 0 -40px;
+    }
+    &__item {}
+    &__social {}
+    @media (max-width: 1100px){
+        height: auto;
+    }
+    @media (max-width: 767px){
+        padding: 30px 30px 10px;
+    }
+}
+.item-footer {
+    &__logo {
+        margin: -10px 0 21px 0;
+
+        color: #FAFAFA;
+    }
+    &__text1 {
+        margin: 0 0 40px 0;
+    }
+    &__article {
+
+    }
+    &__text2{
+        p{
+            margin: 0 0 8px 0;
+        }
+    }
+    &__linkstitle {
+
+    }
+    &__links {
+        .item-footer__link{
+            display: block;
+            margin: 0 0 10px 0;
+            
+            @extend .pts;
+            font-size: 17px;
+            font-weight: 400;
+            color: #FAFAFA;
+        }
+        @media (max-width: 992px){
+            margin: 70px 0 0 0;
+        }
+        @media (max-width: 767px){
+            margin: 0;
+        }
+    }
+    &__location {}
+}
+.social-footer {
+    display: flex;
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 28px;
+        height: 28px;
+        margin-right: 25px;
+    
+        border-radius: 25%;
+    
+        @include anim(0.3s,0s);
+        &:hover{
+            background-color: #e8ecee;
+            .social-footer__icon{
+                fill: #1b1a1a;
+            }
+        }
+    }
+    &__icon {
+        fill: #FAFAFA;
+    }
+
+}
+.item-footer {
+    @include flexbox();
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    padding: 0 40px;
+    margin: 0 0 50px 0;
+    @media (max-width: 1245px){
+       padding: 0 10px;
+    }
+    @media (max-width: 992px){
+        width: 50%;
+        text-align: center;
+    }
+    @media (max-width: 767px){
+        width: 100%;
+        margin: 0 0 30px 0;
+    }
+}
 
 //! </Footer> =================================================================
+
+//! <Slider> =================================================================
+
+
+
+//! </Slider> =================================================================
