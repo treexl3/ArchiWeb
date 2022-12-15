@@ -5,16 +5,16 @@ const links = document.querySelectorAll('.menu-header__link');
 document.body.classList.add('touch')
 
 btn.addEventListener('click', () => {
-    btn.classList.toggle('active');
-    nav.classList.toggle('active');
-    document.body.classList.toggle('lock');
+   btn.classList.toggle('active');
+   nav.classList.toggle('active');
+   document.body.classList.toggle('lock');
 });
 links.forEach(link => {
-    link.addEventListener('click', () => {
-        btn.classList.remove('active');
-        nav.classList.remove('active');
-        document.body.classList.remove('lock');
-    });
+   link.addEventListener('click', () => {
+      btn.classList.remove('active');
+      nav.classList.remove('active');
+      document.body.classList.remove('lock');
+   });
 })
 
 //! Adding Map
@@ -33,14 +33,14 @@ function init() {
    var map = new google.maps.Map(mapElement, mapOptions);
 };
 
-   //! Reviews: https://kenwheeler.github.io/slick/
-   $('.feedback__slider').slick({
-      infinite: true,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      fade: true,
-      arrows: false
-   })
+//! Reviews: https://kenwheeler.github.io/slick/
+$('.feedback__slider').slick({
+   infinite: true,
+   slidesToShow: 1,
+   slidesToScroll: 1,
+   fade: true,
+   arrows: false
+})
 
 
 
