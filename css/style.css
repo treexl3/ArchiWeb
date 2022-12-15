@@ -750,7 +750,7 @@ h1, h2, h3, h4, h5, h6 {
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
-.projects-header .projects-header__tab:focus {
+.projects-header__tab:focus {
   font-weight: 700;
 }
 

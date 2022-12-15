@@ -623,9 +623,9 @@ body.lock{
                 @include anim(0.3s,0s);
             }
         }
-    }
-    .projects-header__tab:focus{
-        font-weight: 700;
+        &:focus{
+            font-weight: 700;
+        }
     }
 }
 .item-projects {
