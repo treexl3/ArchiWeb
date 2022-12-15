@@ -1,10 +1,17 @@
 //! Nav Toggle 
 const btn = document.querySelector('.burger__menu');
 const nav = document.querySelector('.menu-header__menu');
+document.body.classList.add('touch')
 
 btn.addEventListener('click', () => {
    btn.classList.toggle('active');
    nav.classList.toggle('active');
+   document.body.classList.toggle('lock')
+});
+nav.addEventListener('click', () => {
+   btn.classList.remove('active');
+   nav.classList.remove('active');
+   document.body.classList.remove('lock')
 });
 
 //! Adding Map
