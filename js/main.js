@@ -1,20 +1,21 @@
-//! Nav Toggle 
+//! Nav Toggle
 const btn = document.querySelector('.burger__menu');
 const nav = document.querySelector('.menu-header__menu');
-const link = document.querySelector('.menu-header__link');
+const links = document.querySelectorAll('.menu-header__link');
 document.body.classList.add('touch')
 
 btn.addEventListener('click', () => {
-   btn.classList.toggle('active');
-   nav.classList.toggle('active');
-   document.body.classList.toggle('lock');
+    btn.classList.toggle('active');
+    nav.classList.toggle('active');
+    document.body.classList.toggle('lock');
 });
-link.addEventListener('click', () => {
-   btn.classList.remove('active');
-   nav.classList.remove('active');
-   document.body.classList.remove('lock');
-   console.log();
-});
+links.forEach(link => {
+    link.addEventListener('click', () => {
+        btn.classList.remove('active');
+        nav.classList.remove('active');
+        document.body.classList.remove('lock');
+    });
+})
 
 //! Adding Map
 // When the window has finished loading create our google map below
