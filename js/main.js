@@ -1,17 +1,19 @@
 //! Nav Toggle 
 const btn = document.querySelector('.burger__menu');
 const nav = document.querySelector('.menu-header__menu');
+const link = document.querySelector('.menu-header__link');
 document.body.classList.add('touch')
 
 btn.addEventListener('click', () => {
    btn.classList.toggle('active');
    nav.classList.toggle('active');
-   document.body.classList.toggle('lock')
+   document.body.classList.toggle('lock');
 });
-nav.addEventListener('click', () => {
+link.addEventListener('click', () => {
    btn.classList.remove('active');
    nav.classList.remove('active');
-   document.body.classList.remove('lock')
+   document.body.classList.remove('lock');
+   console.log();
 });
 
 //! Adding Map
