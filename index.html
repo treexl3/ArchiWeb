@@ -3,13 +3,14 @@
 
 <head>
 	<title>ArchiWeb</title>
-	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="stylesheet" href="css/reset.css" />
-	<link rel="stylesheet" href="css/style.css" />
-	<link rel="favicon icon" href="favicon.icon">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 
+	<link rel="favicon icon" href="favicon.icon">
 	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
@@ -309,9 +310,9 @@
 		<section class="feedback">
 			<div class="container">
 				<div id="contact" class="feedback__title title">Testimonial</div>
-				<div class="feedback__slider" id="Slider">
-					<div class="feedback__inner">
-						<div class="feedback__item">
+				<div class="feedback-slider swiper-container">
+					<div class="feedback-slider__wrapper swiper-wrapper">
+						<div class="feedback-slider__slide swiper-slide">
 							<div class="feedback__image">
 								<img src="img/feedback/feedback-01.png" alt="">
 							</div>
@@ -324,7 +325,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="feedback__item">
+						<div class="feedback-slider__slide swiper-slide">
 							<div class="feedback__image">
 								<img src="img/feedback/feedback-02.png" alt="">
 							</div>
@@ -337,7 +338,35 @@
 								</div>
 							</div>
 						</div>
+						<div class="feedback-slider__slide swiper-slide">
+							<div class="feedback__image">
+								<img src="img/feedback/feedback-01.png" alt="">
+							</div>
+							<div class="feedback__textblock">
+								<div class="feedback__name">James Passaquindici Arcand</div>
+								<div class="feedback__text">
+									Lorem ipsum dolor sit amet,
+									consectetur adipiscing elit ut
+									aliquam, purus sit amet luctus venenatis
+								</div>
+							</div>
+						</div>
+						<div class="feedback-slider__slide swiper-slide">
+							<div class="feedback__image swiper-zoom-container">
+								<img src="img/feedback/feedback-02.png" alt="">
+							</div>
+							<div class="feedback__textblock">
+								<div class="feedback__name">Abram Schleifer</div>
+								<div class="feedback__text">
+									Lorem ipsum dolor sit amet,
+									consectetur adipiscing elit ut
+									aliquam, purus sit amet luctus venenatis
+								</div>
+							</div>
+						</div>
 					</div>
+					<!--! Добавляємо, якщо нам потрібна пагінація -->
+					<div class="swiper-pagination"></div>
 				</div>
 			</div>
 		</section>
@@ -403,6 +432,7 @@
 			</div>
 		</footer>
 
+		<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 		<script src="js/main.js"></script>
 		<script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=&callback=init"></script>
 </body>

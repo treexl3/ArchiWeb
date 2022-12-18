@@ -1,3 +1,94 @@
+//! Ініціалізуємо Swiper
+let myImageSlider = new Swiper('.feedback-slider', {
+   pagination: {
+      el: '.swiper-pagination',
+      //! Булети
+      clickable: true,
+      //! Динамічні булети
+      dynamicBullets: true,
+   },
+
+   //! Авто-висота
+   autoHeight: true,
+
+   //! Кількість слайдів для показа
+   slidesPerView: 2,
+
+   //! Кількість пролистуємих слайдів
+   slidesPerGroup: 1,
+
+   //! Відступ між слайдами 
+   spaceBetween: 150,
+
+   //! Відключення функціонала
+   //! якщо слайдів менше ніж потрібно
+   watchOverflow: true,
+
+   //! Управління клавіатурою
+   keyboard: {
+      //! Включити/виключити
+      enabled: true,
+      //! Включити/виключити
+      //! тільки тоді коли слайдер
+      //! в межах вьюпорта
+      onlyInViewport: true,
+      //! Включити/виключити
+      //! управління клавішами
+      //! PageUp, PageDown
+      pageUpDown: true,
+   },
+
+   //! Безкінченний слайдер
+   loop: true,
+
+/*    //! АВтопрокрутка
+   autoplay: {
+      //! Пауза між прокруткою
+      delay: 2250,
+      //! Закінчити на останньому слайді
+      stopOnLastSlide: false,
+      //! Відключити після ручного переключення
+      disableOnInteraction: false,
+   }, */
+
+   //! Швидкість
+   speed: 900,
+
+   breakpoints: {
+      320: {
+         slidesPerView: 1,
+      },
+      480: {
+         slidesPerView: 1,
+      },
+      992: {
+         slidesPerView: 2,
+      },
+   },
+
+   //! ЗУм картинок
+   zoom: {
+      //! Максимальне збільшування
+      maxRatio: 5,
+      //! Мінімальне збільшування
+      minRatio: 1,
+   },
+});
+
+//! Запуск автопрокрутки при наведенні 
+let sliderBlock = document.querySelector('.feedback-slider');
+
+// myImagesSlider - це змінна якій прсвоїний слайдер
+
+sliderBlock.addEventListener("mouseenter", function (e) {
+   myImageSlider.params.autoplay.disableOnInteraction = false;
+   myImageSlider.params.autoplay.delay = 1000;
+   myImageSlider.autoplay.start();
+});
+sliderBlock.addEventListener("mouseleave", function (e) {
+   myImageSlider.autoplay.stop();
+});
+
 //! Nav Toggle
 const btn = document.querySelector('.burger__menu');
 const nav = document.querySelector('.menu-header__menu');
@@ -15,7 +106,7 @@ links.forEach(link => {
       nav.classList.remove('active');
       document.body.classList.remove('lock');
    });
-})
+});
 
 //! Adding Map
 // When the window has finished loading create our google map below
@@ -32,16 +123,6 @@ function init() {
 
    var map = new google.maps.Map(mapElement, mapOptions);
 };
-
-//! Reviews: https://kenwheeler.github.io/slick/
-$('.feedback__slider').slick({
-   infinite: true,
-   slidesToShow: 1,
-   slidesToScroll: 1,
-   fade: true,
-   arrows: false
-})
-
 
 
 
