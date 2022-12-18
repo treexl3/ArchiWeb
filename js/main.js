@@ -38,19 +38,6 @@ let myImageSlider = new Swiper('.feedback-slider', {
       pageUpDown: true,
    },
 
-   //! Безкінченний слайдер
-   loop: true,
-
-/*    //! АВтопрокрутка
-   autoplay: {
-      //! Пауза між прокруткою
-      delay: 2250,
-      //! Закінчити на останньому слайді
-      stopOnLastSlide: false,
-      //! Відключити після ручного переключення
-      disableOnInteraction: false,
-   }, */
-
    //! Швидкість
    speed: 900,
 
