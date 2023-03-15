@@ -1,0 +1,907 @@
+//! <HTML> =================================================================
+html {
+   scroll-behavior: smooth;
+}
+//! </HTML> =================================================================
+
+//! <Міксини> =================================================================
+@mixin anim($time, $delay) {
+   -webkit-transition: all $time ease $delay;
+   -moz-transition: all $time ease $delay;
+   -ms-transition: all $time ease $delay;
+   -o-transition: all $time ease $delay;
+   transition: all $time ease $delay;
+}
+@mixin anim_cubic($time, $delay) {
+   -webkit-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   -moz-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   -ms-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   -o-transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+   transition: all $time cubic-bezier(0.68, -0.55, 0.265, 1.55) $delay;
+}
+@mixin rotate($deg) {
+   -moz-transform: rotate($deg);
+   -ms-transform: rotate($deg);
+   -webkit-transform: rotate($deg);
+   -o-transform: rotate($deg);
+   transform: rotate($deg);
+}
+@mixin scale($num) {
+   -moz-transform: scale($num);
+   -ms-transform: scale($num);
+   -webkit-transform: scale($num);
+   -o-transform: scale($num);
+   transform: scale($num);
+}
+@mixin skew($num) {
+   -moz-transform: skewX($num);
+   -ms-transform: skewX($num);
+   -webkit-transform: skewX($num);
+   -o-transform: skewX($num);
+   transform: skewX($num);
+}
+@mixin cnt($h) {
+   display: flex;
+   flex-direction: column;
+   height: $h;
+   text-align: center;
+   align-items: stretch;
+   justify-content: center;
+}
+@mixin tr($x, $y, $z) {
+   transform: translate3d($x, $y, $z);
+}
+@mixin flexbox() {
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+}
+@mixin flexorder($val) {
+   -webkit-box-ordinal-group: $val;
+   -moz-box-ordinal-group: $val;
+   -ms-flex-order: $val;
+   order: $val;
+}
+//! </Міксини> =================================================================
+
+//! <Шрифти> =================================================================
+
+//* <Підключаємо шрифти> =================================================================
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap");
+//* </Підключаємо шрифти> =================================================================
+
+//* <Шрифт по змовчуванню> =================================================================
+body.lock {
+   overflow: hidden;
+}
+//* </Шрифт по змовчуванню> =================================================================
+
+//! <Шаблони текстів> =================================================================
+
+.pts {
+   font-family: "Inter", sans-serif;
+}
+.ptz {
+   font-family: "Barlow", sans-serif;
+}
+
+//! </Шаблони текстів> =================================================================
+
+//! </Шрифти> =================================================================
+
+//! <Змінні> =================================================================
+
+//! </Змінні> =================================================================
+
+//! <Buttons and used classes> =================================================================
+
+.title {
+   font-size: 51px;
+   font-weight: 700;
+   text-align: center;
+   color: #2f2e2e;
+   @media (max-width: 767px) {
+      font-size: 38px;
+   }
+}
+
+.logo {
+   display: inline-block;
+
+   @extend .ptz;
+   font-weight: 600;
+   font-size: 42px;
+   color: #2f2e2e;
+}
+
+.subtitle {
+   margin: 0 0 24.5px 0;
+
+   @extend .pts;
+   font-weight: 900;
+   font-size: 24px;
+   color: #fafafa;
+}
+
+.text {
+   @extend .pts;
+   font-size: 17px;
+   font-weight: 400;
+   line-height: 29px;
+   color: #fafafa;
+}
+
+#map {
+   width: 295px;
+   height: 221px;
+}
+
+//! </Buttons and used classes> =================================================================
+
+//! <Файл обнуляющих стилів> =================================================================
+@import "_reset.scss";
+//! </Файл обнуляющих стилів> =================================================================
+
+//! <Оболочка> =================================================================
+.wrapper {
+   width: 100%;
+   min-height: 100%;
+   overflow: hidden;
+   &.loaded {
+   }
+}
+//! </Оболочка> =================================================================
+
+//! <Основна сітка> =================================================================
+.container {
+   max-width: 1245px;
+   margin: 0 auto;
+   width: 100%;
+   @media (max-width: 1245px) {
+      max-width: 992px;
+   }
+   @media (max-width: 992px) {
+      max-width: 767px;
+   }
+   @media (max-width: 767px) {
+      max-width: none;
+      padding: 0 10px;
+   }
+}
+//! </Основна сітка> =================================================================
+
+//! <Header> =================================================================
+
+//* <Burger> =================================================================
+
+.burger__menu {
+   display: none;
+   width: 30px;
+   height: 18px;
+   position: relative;
+   margin-top: 10px;
+
+   cursor: pointer;
+   z-index: 5;
+   span {
+      @include anim(0.3s, 0s);
+      position: absolute;
+      top: 8px;
+      left: 0px;
+      width: 100%;
+      height: 2px;
+
+      background-color: #000;
+      &:first-child {
+         top: 0;
+      }
+      &:last-child {
+         top: auto;
+         bottom: 0;
+      }
+   }
+   &.active {
+      span {
+         transform: scale(0);
+         &:first-child {
+            @include rotate(45deg);
+            top: 8px;
+         }
+         &:last-child {
+            @include anim(0.3s, 0s);
+            @include rotate(-45deg);
+            bottom: 8px;
+         }
+      }
+   }
+   @media (max-width: 767px) {
+      display: block;
+   }
+}
+.header {
+   margin: 0 0 30px 0;
+   position: fixed;
+   background-color: #fff;
+   width: 100%;
+   z-index: 100;
+   @media (max-width: 992px) {
+      margin: 0 0 20px 0;
+   }
+   @media (max-width: 767px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+   }
+   &__body {
+      @include flexbox();
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      @media (max-width: 767px) {
+         height: 75px;
+      }
+   }
+   &__logo {
+      display: inline-block;
+      position: relative;
+      z-index: 999;
+
+      @extend .ptz;
+      font-weight: 600;
+      font-size: 42px;
+      color: #2f2e2e;
+   }
+}
+
+.menu-header {
+   &__menu {
+      position: relative;
+      @media (max-width: 767px) {
+         position: fixed;
+         width: 100%;
+         height: 100%;
+         top: -100%;
+         left: 0;
+         padding: 50px;
+         overflow: auto;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         text-align: center;
+
+         background-color: #fff;
+         z-index: 2;
+         @include anim(0.3s, 0s);
+         &.active {
+            top: 0;
+         }
+      }
+   }
+   &__list {
+      display: flex;
+      align-items: center;
+      li {
+         margin: 11px 100px 0 0;
+         @media (max-width: 992px) {
+            margin: 10px 40px 0 0;
+         }
+         @media (max-width: 767px) {
+            margin: 40px 0;
+         }
+      }
+      @media (max-width: 767px) {
+         display: block;
+      }
+   }
+   &__link {
+      display: inline-block;
+      position: relative;
+
+      @extend .pts;
+      font-size: 20px;
+      color: #2f2e2e;
+      span {
+         position: relative;
+         display: block;
+
+         line-height: 28px;
+         @include anim(0.3s, 0s);
+         &:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 0;
+            height: 1.5px;
+
+            background-color: #2f2e2e;
+            @include anim(0.3s, 0s);
+            @media (max-width: 767px) {
+               bottom: -5px;
+            }
+         }
+      }
+      &:hover {
+         color: #1b1a1a;
+         span:after {
+            left: 0;
+            width: 100%;
+         }
+      }
+      span {
+         &.active {
+            &::after {
+               left: 0;
+               width: 100%;
+            }
+         }
+      }
+      @media (max-width: 767px) {
+         font-size: 35px;
+      }
+   }
+   .search {
+      margin-top: 10px;
+      &__icon {
+         fill: #2f2e2e;
+         @include anim(0.3s, 0s);
+         &:hover {
+            fill: #1b1a1a;
+            transform: scale(1.2) rotate(-25deg);
+         }
+      }
+      @media (max-width: 767px) {
+         position: absolute;
+         top: 21px;
+         right: 70px;
+         transform: scale(1.1);
+      }
+   }
+}
+
+//* </Burger> =================================================================
+
+//! </Header> =================================================================
+
+//! <Solution> =================================================================
+
+.solution {
+   &__body {
+      @include flexbox();
+      justify-content: flex-end;
+      position: relative;
+   }
+   &__item {
+   }
+   &__image {
+   }
+   height: 739px;
+   img {
+      max-width: 100%;
+      @media (max-width: 510px) {
+         margin: 200px 0 0 0;
+      }
+   }
+   @media (max-width: 1170px) {
+      height: auto;
+   }
+}
+.item-solution {
+   &__body {
+      position: absolute;
+      top: 150px;
+      left: 0;
+      width: 691px;
+      height: 550px;
+      z-index: 5;
+      padding: 138px 100px 0;
+
+      background: linear-gradient(
+         91.1deg,
+         rgba(244, 246, 245, 0.9) -7.89%,
+         rgba(255, 255, 255, 0.9) 132.55%
+      );
+
+      @media (max-width: 1170px) {
+         height: 475px;
+      }
+      @media (max-width: 992px) {
+         top: 50px;
+         width: auto;
+         height: auto;
+         padding: 100px 55px 80px;
+      }
+      @media (max-width: 767px) {
+         padding: 30px 10px;
+      }
+   }
+   &__title {
+      margin: 0 0 10px 0;
+
+      font-size: 51px;
+      line-height: 60px;
+      color: #2f2e2e;
+      @media (max-width: 767px) {
+         font-size: 40px;
+      }
+      @media (max-width: 510px) {
+         font-size: 20px;
+         line-height: 30px;
+      }
+   }
+   &__text {
+      @extend .pts;
+      font-size: 32px;
+      font-weight: 200;
+      line-height: 39px;
+      color: #2f2e2e;
+      @media (max-width: 767px) {
+         font-size: 20px;
+      }
+      @media (max-width: 510px) {
+         font-size: 14px;
+         line-height: 22px;
+      }
+   }
+}
+
+//! </Solution> =================================================================
+
+//! <Services> =================================================================
+
+.services {
+   padding: 15px 0 65px;
+   margin: 0 0 75px 0;
+
+   background: rgba(37, 77, 77, 0.2);
+   @media (max-width: 767px) {
+      margin: 0 0 35px 0;
+   }
+   &__container {
+      max-width: 1170px;
+      margin: 0 auto;
+   }
+   &__title {
+      margin: 0 0 45px 0;
+   }
+   &__body {
+      @include flexbox();
+      justify-content: space-between;
+      flex-wrap: wrap;
+   }
+   &__column {
+      flex: 0 0 auto;
+      @media (max-width: 767px) {
+         flex: 1 1 100%;
+      }
+   }
+   @media (max-width: 767px) {
+      padding: 15px 0 0px;
+   }
+}
+.item-services {
+   @include flexbox();
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   &__image {
+      @include flexbox();
+      justify-content: center;
+      align-items: center;
+      width: 103px;
+      height: 103px;
+
+      background-color: #254d4d;
+      border-radius: 50%;
+   }
+   &__blocktext {
+      width: 158px;
+      @media (max-width: 767px) {
+         width: auto;
+      }
+   }
+   &__title {
+      margin-bottom: 10px;
+
+      font-size: 32px;
+      font-weight: 700;
+      color: #2f2e2e;
+   }
+   &__subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19px;
+      color: #2f2e2e;
+   }
+   @media (max-width: 767px) {
+      margin: 0 0 50px 0;
+   }
+}
+
+//! </Services> =================================================================
+
+//! <About> =================================================================
+
+.about {
+   margin: 0 0 95px 0;
+   @media (max-width: 767px) {
+      margin: 0 0 45px 0;
+   }
+   &__row {
+      @include flexbox();
+      @media (max-width: 1245px) {
+         flex-direction: column;
+      }
+   }
+   &__image {
+      text-align: center;
+      @media (max-width: 1245px) {
+         order: 2;
+      }
+      img {
+         @media (max-width: 767px) {
+            max-width: 100%;
+         }
+      }
+   }
+   &__block {
+   }
+}
+.block-about {
+   margin: 65px 0 0 85px;
+   &__title {
+      margin: 0 0 25px 0;
+
+      text-align: left;
+      @media (max-width: 1245px) {
+         text-align: center;
+      }
+   }
+   &__text {
+      margin: 0 0 35px 0;
+
+      font-size: 31px;
+      line-height: 46px;
+      @media (max-width: 767px) {
+         font-size: 20px;
+         line-height: 30px;
+      }
+   }
+   &__link {
+      @extend .pts;
+      font-size: 24px;
+      font-weight: 600;
+      color: #2f2e2e;
+      --b: 0.15em; /* the thickness of the line */
+      --c: #254d4d; /* the color */
+
+      color: #0000;
+      padding-block: var(--b);
+      background: linear-gradient(var(--c) 0%, #000) 0%
+            calc(100% - var(--_p, 0%)) / 100% 200%,
+         linear-gradient(var(--c) 0 0) 0% var(--_p, 0%) / var(--_p, 0%) var(--b)
+            no-repeat;
+      -webkit-background-clip: text, padding-box;
+      background-clip: text, padding-box;
+      transition: 0.3s var(--_s, 0s) linear,
+         background-size 0.3s calc(0.3s - var(--_s, 0s));
+      &:hover {
+         --_p: 100%;
+         --_s: 0.3s;
+      }
+   }
+   @media (max-width: 1245px) {
+      text-align: center;
+      margin: 0 0 50px 0;
+   }
+}
+
+//! </About> =================================================================
+
+//! <Projects> =================================================================
+
+.projects {
+   margin: 0 0 60px 0;
+   @media (max-width: 767px) {
+      margin: 0 0 10px 0;
+   }
+   &__header {
+   }
+   &__row {
+      display: none;
+      &:target {
+         @include flexbox();
+         flex-wrap: wrap;
+         margin: 0 -50px;
+      }
+   }
+   &__item {
+      width: 33.333%;
+      padding: 0 50px;
+      margin: 0 0 75px 0;
+      @media (max-width: 1245px) {
+         width: 50%;
+      }
+      @media (max-width: 767px) {
+         width: 100%;
+         margin: 0 0 50px 0;
+      }
+   }
+}
+
+.projects-header {
+   margin: 0 0 70px 0;
+
+   @include flexbox();
+   justify-content: space-between;
+   align-items: center;
+   height: 68px;
+   @media (max-width: 767px) {
+      flex-direction: column;
+      margin: 0 0 55px 0;
+   }
+   &__title {
+      @media (max-width: 767px) {
+         margin: 0 0 15px 0;
+      }
+   }
+   &__list {
+      @include flexbox();
+      align-items: center;
+      margin-top: 10px;
+      li {
+         margin-left: 95px;
+         &:first-child {
+            margin: 0;
+         }
+         @media (max-width: 992px) {
+            margin-left: 50px;
+         }
+         @media (max-width: 510px) {
+            margin-left: 22px;
+            &:first-child {
+               margin-left: 5px;
+            }
+         }
+      }
+   }
+   &__tab {
+      position: relative;
+
+      @extend .pts;
+      font-size: 20px;
+      font-weight: 400;
+      color: #2f2e2e;
+      span {
+         &::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            left: 0;
+            bottom: 0;
+            height: 1.5px;
+
+            background-color: #2f2e2e;
+            @include anim(0.3s, 0s);
+         }
+      }
+      &:active {
+         font-weight: 700;
+      }
+   }
+}
+.item-projects {
+   @include flexbox();
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   &__image {
+      margin: 0 0 15px 0;
+      img {
+         border-radius: 30px;
+      }
+   }
+   &__text {
+      width: 178px;
+
+      text-align: center;
+      font-size: 18px;
+      line-height: 21px;
+      color: #2f2e2e;
+   }
+}
+
+//! </Projects> =================================================================
+
+//! <Feedback> =================================================================
+
+.feedback {
+   margin: 0 0 150px 0;
+   @media (max-width: 767px) {
+      margin: 0 0 100px 0;
+   }
+   &__title {
+      margin: 0 0 75px 0;
+   }
+   &__image {
+      img {
+         @media (max-width: 510px) {
+            width: 110px;
+            height: 110px;
+         }
+      }
+   }
+   &__textblock {
+      margin: 0 0 0 30px;
+      @media (max-width: 1110px) {
+         text-align: center;
+      }
+   }
+   &__name {
+      width: 363px;
+      margin: 0 0 15px 0;
+
+      font-size: 28px;
+      font-weight: 700;
+      color: #2f2e2e;
+      @media (max-width: 1110px) {
+         width: auto;
+      }
+      @media (max-width: 510px) {
+         font-size: 22px;
+      }
+   }
+   &__text {
+      width: 307px;
+
+      font-size: 17px;
+      line-height: 20px;
+      color: #2f2e2e;
+      @media (max-width: 1110px) {
+         width: auto;
+      }
+      @media (max-width: 510px) {
+         font-size: 14px;
+      }
+   }
+}
+.feedback-slider {
+   position: relative;
+   &__wrapper {
+      @include flexbox();
+   }
+   &__slide {
+      @include flexbox();
+      align-items: center;
+      @media (max-width: 1245px) {
+         margin: 0 20px 0 0;
+      }
+   }
+}
+.feedback-slider .swiper-pagination-bullet {
+   width: 14px;
+   height: 14px;
+   background: rgb(69, 69, 69);
+}
+.swiper-pagination {
+   bottom: -65px !important;
+}
+
+//! </Feedback> =================================================================
+
+//! <Footer> =================================================================
+
+.footer {
+   height: 369px;
+   padding: 50px 100px;
+
+   background: #2e2f32;
+   &__body {
+      @include flexbox();
+      flex-wrap: wrap;
+      margin: 0 -40px;
+   }
+   &__item {
+   }
+   &__social {
+   }
+   @media (max-width: 1100px) {
+      height: auto;
+   }
+   @media (max-width: 767px) {
+      padding: 30px 30px 10px;
+   }
+}
+.item-footer {
+   &__logo {
+      margin: -10px 0 21px 0;
+
+      color: #fafafa;
+   }
+   &__text1 {
+      margin: 0 0 40px 0;
+   }
+   &__article {
+   }
+   &__text2 {
+      p {
+         margin: 0 0 8px 0;
+      }
+   }
+   &__linkstitle {
+   }
+   &__links {
+      .item-footer__link {
+         display: block;
+         margin: 0 0 10px 0;
+
+         @extend .pts;
+         font-size: 17px;
+         font-weight: 400;
+         color: #fafafa;
+      }
+      @media (max-width: 992px) {
+         margin: 70px 0 0 0;
+      }
+      @media (max-width: 767px) {
+         margin: 0;
+      }
+   }
+   &__location {
+   }
+}
+.social-footer {
+   display: flex;
+   &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      margin-right: 25px;
+
+      border-radius: 25%;
+
+      @include anim(0.3s, 0s);
+      &:hover {
+         background-color: #e8ecee;
+         .social-footer__icon {
+            fill: #1b1a1a;
+         }
+      }
+   }
+   &__icon {
+      fill: #fafafa;
+   }
+}
+.item-footer {
+   @include flexbox();
+   flex-direction: column;
+   align-items: center;
+   width: 25%;
+   padding: 0 40px;
+   margin: 0 0 50px 0;
+   @media (max-width: 1245px) {
+      padding: 0 10px;
+   }
+   @media (max-width: 992px) {
+      width: 50%;
+      text-align: center;
+   }
+   @media (max-width: 767px) {
+      width: 100%;
+      margin: 0 0 30px 0;
+   }
+}
+
+//! </Footer> =================================================================
+
+//! <Slider> =================================================================
+
+//! </Slider> =================================================================
